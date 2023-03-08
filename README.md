@@ -15,7 +15,8 @@ Example batch file content:
 	HttpPingTool.exe -url="http://www.domain.com/uptimetest1" -url="http://www.domain.com/uptimetest2" -successReplyBodyRegEx="</html>\s+$"
 	net stop YourProblematicServerService
 	net start YourProblematicServerService
-	sleep 15
+	ping -n 16 127.0.0.1
+	REM sleep 15
 	goto s
 
 The above example sends GET requests to http://www.domain.com/uptimetest1 and http://www.domain.com/uptimetest2 URL addresses. Once requests to ALL of the specified target URL addresses start failing, the server service is restarted by the following commands in the batch file. The failure is specified as missing <html> tag at the end of the HTTP response. By default the trigger activates (that is, Http Ping monitor tool quits) when ALL of the target URL addresses fail to correctly respond to the request for 3 consequtive checks with 5 second intervals, and then the outage continues for another 30 seconds after that. If the monitored URL addresses respond to requests correctly during that additional time interval then the trigger is reset and Http Ping monitor tool continues running without quitting.
